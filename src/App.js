@@ -14,7 +14,6 @@ let DefaultIcon = L.icon({
     shadowAnchor: [12, 35],  // the same for the shadow
     popupAnchor:  [2, -20] // point from which the popup should open relative to the iconAnchor
 });
-
 L.Marker.prototype.options.icon = DefaultIcon;
 
 
@@ -33,14 +32,23 @@ let locations = [
       id: "Pos3",
       lat: "51.5",
       long: "-0.06"
+    },
+    {
+      id: "Pos4",
+      lat: "50",
+      long: "-2"
     }
 ]
 
+var mapBounds = new L.LatLngBounds();
+locations.forEach(location => {
+  mapBounds.extend([location.lat, location.long]);
+});
 
 function App() {
   return (
     <div id="map">
-      <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+      <MapContainer bounds={mapBounds} center={[51.505, -0.09]} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
